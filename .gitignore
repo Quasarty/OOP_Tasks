@@ -1,5 +1,5 @@
 .vscode/
-.Lib/
+Lib/
 *.exe
 *.o
 *.obj
