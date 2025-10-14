@@ -4,15 +4,16 @@
 #include <iostream>
 #include <random>
 #include <time.h>
+#include "Arrays.hpp"
 
 using namespace std;
 
 
 int main(){
-    size_t n = 0;
-    cout << "Введите натуральное число n: ";
-    cin >> n;
+    
     //Создание динамического массива
-    float *array = new float[n];
-
+    float *array;
+    size_t size = arr::fill_from_file(array, "test.txt");
+    arr::print_array(array, size);
+    cout << arr::get_num(array, size);
 }
