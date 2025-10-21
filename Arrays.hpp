@@ -17,7 +17,14 @@ namespace arr{
  * @param array массив
  * @param size размер массива
  */
-void print_array(const float* array, size_t size);
+template <typename T>
+void print_array(const T* array, size_t size){
+    
+    for (size_t i = 0; i < size; i++)
+        cout << format("a[{}] = {}; ", i+1, array[i]);
+    cout << endl;
+    
+}
 
 /**
  * @brief Функция выводит массив, выводя максимум 10 элементов в строке
@@ -25,7 +32,16 @@ void print_array(const float* array, size_t size);
  * @param array массив
  * @param size размер массива
  */
-void print_array_by_10(const float* array, size_t size);
+template <typename T>
+void print_array_by_10(const T* array, size_t size){
+    
+    for (size_t i = 0; i < size; i++){
+        cout << format("a[{}] = {}", i, array[i]);
+        if ((i % 10) == 0)
+            cout << endl;
+    }
+    
+}
 
 /**
  * @brief Заполняет массив случайными числами
@@ -44,28 +60,118 @@ float* fill_rand(size_t size, float min = -10.0, float max = 10.0 );
  * @param size размер массива
  * @param file_name название файла
  */
-void print_to_file(const float* array, size_t size, string file_name);
+template <typename T>
+void print_to_file(const T* array, size_t size, string file_name){
+    //Класс потока вывода в файл
+    ofstream file(file_name);
 
-void print_to_bin_file(const float* array, size_t size, string file_name);
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
+
+    //Вывод
+    for (size_t i = 0; i < size; i++)
+        file << array[i] << ' ';
+
+}
 
 /**
- * @brief Заполняет массив числами из файла, возвращает размер массива
+ * @brief Записывает массив в бинарный файл
+ * 
+ * @param array массив
+ * @param size размер массива
+ * @param file_name название файла
+ */
+template <typename T>
+void print_to_bin_file(const T* array, size_t size, string file_name){
+    //Класс потока вывода в файл
+    fstream file(file_name, ios::out | ios::trunc | ios::binary);
+    
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
+
+    //Запись размера массива
+    file.write((char*)size, sizeof(size_t));
+    //Запись массива
+    file.write((char*)array, sizeof(T)*size);    
+
+    file.close();
+}
+
+/**
+ * @brief Заполняет массив числами из текстового файла, возвращает размер массива
  * 
  * @param array массив
  * @param file_name название файла
  * @return size_t размер массива
  */
-size_t fill_from_file(float* array, string file_name);
+template <typename T>
+size_t fill_from_file(T* array, string file_name){
+    //Класс потока ввода из файла
+    ifstream file(file_name);
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
 
-size_t fill_from_bin_file(float*& array, string file_name);
+
+    T tmp;
+    size_t size = 0; 
+    //Рассчёт размера массива
+    while ( !file.eof() ){
+        file >> tmp;
+        size++;
+    }
+
+    //Добавление в массив
+    file.seekg(0); //< Установка курсора в начало файла
+    for (size_t i = 0; i < size; i++)
+        file >> array[i];
+    return size;
+
+    return 0;
+}
 
 /**
- * @brief Возвращает число, считаемое из массива по некой формуле  
+ * @brief Заполняет массив числами из бинарного файла, возвращает размер массива
+ * 
+ * @param array массив
+ * @param file_name название файла
+ * @return size_t размер массива
+ */
+template <typename T>
+size_t fill_from_bin_file(T*& array, string file_name){
+    //Класс потока ввода из файла
+    fstream file(file_name, ios::in | ios::binary);
+    
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
+
+
+    //Рассчёт размера массива
+    size_t size = 0; 
+    file.read((char*)size, sizeof(size_t));
+
+    //Добавление в массив
+    array = new float[size];
+    file.read((char*)array, sizeof(T)*size);
+    return size;
+    
+    return 0;
+}
+
+
+/**
+ * @brief Считает корень квадратный модуля произведения всех элементов  
  * 
  * @param array массив
  * @param size размер массива
  * @return float посчитанное по формуле число
  */
-float get_num(float *array, size_t size);
+template <typename T>
+T get_num(T *array, size_t size){
+    T mul = 1; 
+    for (size_t i = 0; i < size; i++){
+        mul *= array[i];
+    }
+    return sqrt(abs(mul));
+}
 
 }
