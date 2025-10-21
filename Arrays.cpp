@@ -76,11 +76,29 @@ float* fill_rand(size_t size, float min = -10.0, float max = 10.0 ){
 void print_to_file(const float* array, size_t size, string file_name){
     //Класс потока вывода в файл
     ofstream file(file_name);
-    
+
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
+
     //Вывод
     for (size_t i = 0; i < size; i++)
-        file << array[i];
+        file << array[i] << ' ';
 
+}
+
+void print_to_bin_file(const float* array, size_t size, string file_name){
+    //Класс потока вывода в файл
+    fstream file(file_name, ios::out | ios::trunc | ios::binary);
+    
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
+
+    //Запись размера массива
+    file.write((char*)size, sizeof(size_t));
+    //Запись массива
+    file.write((char*)array, sizeof(float)*size);    
+
+    file.close();
 }
 
 /**
@@ -113,6 +131,28 @@ size_t fill_from_file(float* array, string file_name){
 
     return 0;
 }
+
+
+size_t fill_from_bin_file(float*& array, string file_name){
+    //Класс потока ввода из файла
+    fstream file(file_name, ios::in | ios::binary);
+    
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
+
+
+    //Рассчёт размера массива
+    size_t size = 0; 
+    file.read((char*)size, sizeof(size_t));
+
+    //Добавление в массив
+    array = new float[size];
+    file.read((char*)array, sizeof(float)*size);
+    return size;
+    
+    return 0;
+}
+
 
 /**
  * @brief Считает корень квадратный модуля произведения всех элементов  

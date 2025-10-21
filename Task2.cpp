@@ -55,4 +55,5 @@ int main(){
 
     arr::print_array(array, size);
     cout << arr::get_num(array, size);
+    
 }
