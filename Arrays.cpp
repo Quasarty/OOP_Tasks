@@ -19,8 +19,8 @@ namespace arr{
 void print_array(const float* array, size_t size){
     
     for (size_t i = 0; i < size; i++)
-        cout << format("a[{}] = {}; ", i, array[i]);
-    cout << endl; 
+        cout << format("a[{}] = {}; ", i+1, array[i]);
+    cout << endl;
     
 }
 
@@ -93,22 +93,24 @@ void print_to_file(const float* array, size_t size, string file_name){
 size_t fill_from_file(float* array, string file_name){
     //Класс потока ввода из файла
     ifstream file(file_name);
+    if ( !file.is_open() )
+        throw(runtime_error("Ошибка: не удалось открыть файл"));
 
-    if ( file.is_open() ){
-        float tmp;
-        size_t size = 0; 
-        //Рассчёт размера массива
-        while ( !file.eof() ){
-            file >> tmp;
-            size++;
-        }
 
-        //Добавление в массив
-        file.seekg(0); //< Установка курсора в начало файла
-        for (size_t i = 0; i < size; i++)
-            file >> array[i];
-        return size;
+    float tmp;
+    size_t size = 0; 
+    //Рассчёт размера массива
+    while ( !file.eof() ){
+        file >> tmp;
+        size++;
     }
+
+    //Добавление в массив
+    file.seekg(0); //< Установка курсора в начало файла
+    for (size_t i = 0; i < size; i++)
+        file >> array[i];
+    return size;
+
     return 0;
 }
 
