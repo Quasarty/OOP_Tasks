@@ -69,8 +69,9 @@ void print_to_file(const T* array, size_t size, string file_name){
         throw(runtime_error("Ошибка: не удалось открыть файл"));
 
     //Вывод
-    for (size_t i = 0; i < size; i++)
-        file << array[i] << ' ';
+    for (size_t i = 0; i < size-1; i++)
+         file << array[i] << ' ';
+    file << array[size-1];
 
 }
 

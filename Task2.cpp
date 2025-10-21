@@ -31,7 +31,7 @@ int main(){
         cout << "Введите название файла: ";
         cin >> file_name; 
         try{
-            size = arr::fill_from_file(array, file_name);
+            size = arr::fill_from_file<float>(array, file_name);
         }
         catch(const runtime_error error){
             cout << error.what() << '\n';
@@ -61,7 +61,7 @@ int main(){
     arr::print_array(array, size);
     
     choice = 0;
-    cout << "Что сделать дальше:\n1.Получить корень квадратный модуля произведения всех элементов массива\n2.Записать массив в файл\n3.Выход\n";
+    cout << "Что сделать дальше:\n1. Получить корень квадратный модуля произведения всех элементов массива\n2. Записать массив в файл\n3. Выход\n";
     cin >> choice;
     
     switch (choice){
