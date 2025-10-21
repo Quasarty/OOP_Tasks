@@ -13,7 +13,9 @@ int main(){
     
     //Создание динамического массива
     float *array;
+    
     size_t size = arr::fill_from_file(array, "test.txt");
+    
     arr::print_array(array, size);
     cout << arr::get_num(array, size);
 }

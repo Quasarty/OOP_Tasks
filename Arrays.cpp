@@ -20,7 +20,7 @@ void print_array(const float* array, size_t size){
     
     for (size_t i = 0; i < size; i++)
         cout << format("a[{}] = {}; ", i, array[i]);
-    cout << endl;
+    cout << endl; 
     
 }
 
@@ -113,7 +113,7 @@ size_t fill_from_file(float* array, string file_name){
 }
 
 /**
- * @brief Возвращает число, считаемое из массива по некой формуле  
+ * @brief Считает корень квадратный модуля произведения всех элементов  
  * 
  * @param array массив
  * @param size размер массива
