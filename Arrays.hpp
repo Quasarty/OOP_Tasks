@@ -46,6 +46,8 @@ float* fill_rand(size_t size, float min = -10.0, float max = 10.0 );
  */
 void print_to_file(const float* array, size_t size, string file_name);
 
+void print_to_bin_file(const float* array, size_t size, string file_name);
+
 /**
  * @brief Заполняет массив числами из файла, возвращает размер массива
  * 
@@ -54,6 +56,8 @@ void print_to_file(const float* array, size_t size, string file_name);
  * @return size_t размер массива
  */
 size_t fill_from_file(float* array, string file_name);
+
+size_t fill_from_bin_file(float*& array, string file_name);
 
 /**
  * @brief Возвращает число, считаемое из массива по некой формуле  

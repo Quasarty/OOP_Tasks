@@ -9,11 +9,17 @@
 using namespace std;
 
 
-int main(){
-    
+int main(){    
     //Создание динамического массива
+    size_t size = 5; 
     float *array;
-    size_t size = arr::fill_from_file(array, "test.txt");
+
+    size = arr::fill_from_bin_file(array, "output.bin");
+
+    // array = arr::fill_rand(size);
+    // arr::print_to_bin_file(array, size, "output.bin");
+    
     arr::print_array(array, size);
     cout << arr::get_num(array, size);
+    
 }
