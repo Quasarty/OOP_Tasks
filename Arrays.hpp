@@ -46,10 +46,17 @@ float* fill_rand(size_t size, float min = -10.0, float max = 10.0 );
  */
 void print_to_file(const float* array, size_t size, string file_name);
 
+/**
+ * @brief Записывает массив в бинарный файл
+ * 
+ * @param array массив
+ * @param size размер массива
+ * @param file_name название файла
+ */
 void print_to_bin_file(const float* array, size_t size, string file_name);
 
 /**
- * @brief Заполняет массив числами из файла, возвращает размер массива
+ * @brief Заполняет массив числами из текстового файла, возвращает размер массива
  * 
  * @param array массив
  * @param file_name название файла
@@ -57,10 +64,17 @@ void print_to_bin_file(const float* array, size_t size, string file_name);
  */
 size_t fill_from_file(float* array, string file_name);
 
+/**
+ * @brief Заполняет массив числами из бинарного файла, возвращает размер массива
+ * 
+ * @param array массив
+ * @param file_name название файла
+ * @return size_t размер массива
+ */
 size_t fill_from_bin_file(float*& array, string file_name);
 
 /**
- * @brief Возвращает число, считаемое из массива по некой формуле  
+ * @brief Считает корень квадратный модуля произведения всех элементов  
  * 
  * @param array массив
  * @param size размер массива

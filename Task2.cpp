@@ -10,15 +10,15 @@ using namespace std;
 
 
 int main(){
-    int choise = 0;
+    int choice = 0;
     cout << "Выберите способ заполнения массива:\n1. Случайными числами\n2. Ввод массива из файла\n3. Ручной ввод\n";
-    cin >> choise;
+    cin >> choice;
     
     string file_name;
     float* array; 
     size_t size = 0;
 
-    switch (choise){
+    switch (choice){
     //Случайные числа
     case 1:
         cout << "Введите размер массива: ";
@@ -50,10 +50,12 @@ int main(){
         break;
     default:
         cout << "Некорректный выбор"; 
+        return 1;
         break;
     }
-
+    cout << "Массив:\n";
     arr::print_array(array, size);
     cout << arr::get_num(array, size);
     
+    return 0;
 }
