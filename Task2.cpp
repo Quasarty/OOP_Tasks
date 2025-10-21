@@ -20,13 +20,14 @@ int main(){
 
     switch (choice){
     //Случайные числа
-    case 1:
+    case 1:{
         cout << "Введите размер массива: ";
         cin >> size;
         array = arr::fill_rand(size);
         break;
+    }
     //Ввод из файла
-    case 2:
+    case 2:{
         cout << "Введите название файла: ";
         cin >> file_name; 
         try{
@@ -38,8 +39,9 @@ int main(){
         }
         
         break;
+    }
     //Ручной ввод
-    case 3:
+    case 3:{
         cout << "Введите размер массива: ";
         cin >> size;
         array = new float[size];
@@ -48,14 +50,66 @@ int main(){
             cin >> array[i];
         }
         break;
-    default:
+    }
+    default:{
         cout << "Некорректный выбор"; 
         return 1;
         break;
     }
+    }
     cout << "Массив:\n";
     arr::print_array(array, size);
-    cout << arr::get_num(array, size);
+    
+    choice = 0;
+    cout << "Что сделать дальше:\n1.Получить корень квадратный модуля произведения всех элементов массива\n2.Записать массив в файл\n3.Выход\n";
+    cin >> choice;
+    
+    switch (choice){
+    //Получение ответа
+    case 1:{
+        cout << arr::get_num(array, size);
+        break;
+    }
+    //Запись в файл
+    case 2:{
+        int fchoice = 0;
+        cout << "1. Запись в текстовый файл\n2. Запись в бинарный файл";
+        cin >> fchoice; 
+        switch (fchoice){
+        case 1:
+            cout << "Введите название файла: ";
+            cin >> file_name; 
+            try{
+                arr::print_to_file(array, size, file_name);
+            }
+            catch(const runtime_error error){
+                cout << error.what() << '\n';
+                return 1;
+            }
+            break;
+        case 2:
+            cout << "Введите название файла: ";
+            cin >> file_name; 
+            try{
+                arr::print_to_bin_file(array, size, file_name);
+            }
+            catch(const runtime_error error){
+                cout << error.what() << '\n';
+                return 1;
+            }
+        default:
+            cout << "Некорректный выбор"; 
+            break;
+        }
+        break;
+    }
+
+    //Выход
+    default: 
+        break;
+    }
+
+    return 0;
     
     return 0;
 }
