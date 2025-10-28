@@ -8,7 +8,7 @@
 
 using namespace std;
 
-
+//TOSHOW: комп. мод. + binary files
 int main(){
     int choice = 0;
     cout << "Выберите способ заполнения массива:\n1. Случайными числами\n2. Ввод массива из файла\n3. Ручной ввод\n";
@@ -28,16 +28,36 @@ int main(){
     }
     //Ввод из файла
     case 2:{
-        cout << "Введите название файла: ";
-        cin >> file_name; 
-        try{
-            size = arr::fill_from_file<float>(array, file_name);
-        }
-        catch(const runtime_error error){
-            cout << error.what() << '\n';
+        int fchoice = 0;
+        cout << "1. Ввод из текстового файла\n2. Ввод из бинарного файла\n";
+        cin >> fchoice; 
+        switch (fchoice){
+        case 1:
+            cout << "Введите название файла: ";
+            cin >> file_name; 
+            try{
+                size = arr::fill_from_file(array, file_name);
+            }
+            catch(const runtime_error error){
+                cout << error.what() << '\n';
+                return 1;
+            }
+            break;
+        case 2:
+            cout << "Введите название файла: ";
+            cin >> file_name; 
+            try{
+                size = arr::fill_from_bin_file(array, file_name);
+            }
+            catch(const runtime_error error){
+                cout << error.what() << '\n';
+                return 1;
+            }
+            break;
+        default:
+            cout << "Некорректный ввод";
             return 1;
         }
-        
         break;
     }
     //Ручной ввод
@@ -54,26 +74,22 @@ int main(){
     default:{
         cout << "Некорректный выбор"; 
         return 1;
-        break;
     }
     }
     cout << "Массив:\n";
     arr::print_array(array, size);
+    cout << "Ответ: " << arr::get_num(array, size) << endl;
     
     choice = 0;
-    cout << "Что сделать дальше:\n1. Получить корень квадратный модуля произведения всех элементов массива\n2. Записать массив в файл\n3. Выход\n";
+    cout << "Что сделать дальше:\n1. Записать массив в файл\n2. Выход\n";
     cin >> choice;
     
     switch (choice){
-    //Получение ответа
-    case 1:{
-        cout << arr::get_num(array, size);
-        break;
-    }
+
     //Запись в файл
-    case 2:{
+    case 1:{
         int fchoice = 0;
-        cout << "1. Запись в текстовый файл\n2. Запись в бинарный файл";
+        cout << "1. Запись в текстовый файл\n2. Запись в бинарный файл\n";
         cin >> fchoice; 
         switch (fchoice){
         case 1:
@@ -97,6 +113,7 @@ int main(){
                 cout << error.what() << '\n';
                 return 1;
             }
+            break;
         default:
             cout << "Некорректный выбор"; 
             break;
@@ -109,7 +126,5 @@ int main(){
         break;
     }
 
-    return 0;
-    
     return 0;
 }

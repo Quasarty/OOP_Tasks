@@ -83,18 +83,18 @@ void print_to_file(const T* array, size_t size, string file_name){
  * @param file_name название файла
  */
 template <typename T>
-void print_to_bin_file(const T* array, size_t size, string file_name){
+void print_to_bin_file(const T* array, const size_t size, string file_name){
     //Класс потока вывода в файл
     fstream file(file_name, ios::out | ios::trunc | ios::binary);
     
     if ( !file.is_open() )
-        throw(runtime_error("Ошибка: не удалось открыть файл"));
-
+    throw(runtime_error("Ошибка: не удалось открыть файл"));
+    
     //Запись размера массива
-    file.write((char*)size, sizeof(size_t));
+    file.write((char*)&size, sizeof(size_t));
     //Запись массива
     file.write((char*)array, sizeof(T)*size);    
-
+    
     file.close();
 }
 
@@ -143,12 +143,12 @@ size_t fill_from_bin_file(T*& array, string file_name){
     fstream file(file_name, ios::in | ios::binary);
     
     if ( !file.is_open() )
-        throw(runtime_error("Ошибка: не удалось открыть файл"));
+        throw runtime_error("Ошибка: не удалось открыть файл");
 
 
     //Рассчёт размера массива
     size_t size = 0; 
-    file.read((char*)size, sizeof(size_t));
+    file.read((char*)&size, sizeof(size_t));
 
     //Добавление в массив
     array = new float[size];
@@ -160,7 +160,7 @@ size_t fill_from_bin_file(T*& array, string file_name){
 
 
 /**
- * @brief Считает корень квадратный модуля произведения всех элементов  
+ * @brief Считает корень квадратный модуля произведения всех элементов массива
  * 
  * @param array массив
  * @param size размер массива
