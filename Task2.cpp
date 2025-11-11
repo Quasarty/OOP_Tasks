@@ -5,6 +5,7 @@
 #include <random>
 #include <time.h>
 #include "Arrays.hpp"
+#include <vector>
 
 using namespace std;
 
@@ -15,7 +16,7 @@ int main(){
     cin >> choice;
     
     string file_name;
-    float* array; 
+    vector<float> array; 
     size_t size = 0;
 
     switch (choice){
@@ -23,7 +24,8 @@ int main(){
     case 1:{
         cout << "Введите размер массива: ";
         cin >> size;
-        array = arr::fill_rand(size);
+        array.resize(size);
+        arr::fill_rand(array);
         break;
     }
     //Ввод из файла
@@ -36,7 +38,7 @@ int main(){
             cout << "Введите название файла: ";
             cin >> file_name; 
             try{
-                size = arr::fill_from_file(array, file_name);
+                arr::fill_from_file(array, file_name);
             }
             catch(const runtime_error error){
                 cout << error.what() << '\n';
