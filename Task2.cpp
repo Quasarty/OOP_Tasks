@@ -1,15 +1,39 @@
 //Автор: Кожевников Андрей
 //Задача 136л https://ivtipm.github.io/Programming/Glava06/index06.htm#z136
-
+//Компиляция:
+//g++ Task2.cpp .\Lib\MyLib.a -o Task.exe -std=c++23
 #include <iostream>
 #include <random>
 #include <time.h>
 #include "Arrays.hpp"
+#include <assert.h>
 
 using namespace std;
 
-//TOSHOW: комп. мод. + binary files
+float const EPS = 1E-6;
+//Функция для тестов
+void test_get_num(){
+    float* test_arr1 = new float[3];
+    for (size_t i = 0; i < 3; i++ ){
+        test_arr1[i] = i+1;
+    }
+    float* test_arr2 = new float[3];
+    for (size_t i = 0; i < 3; i++ ){
+        test_arr2[i] = (i+1)*2;
+    }    
+    float* test_arr3 = new float[3];
+    for (size_t i = 0; i < 3; i++ ){
+        test_arr3[i] = (i+1)/2.0;
+    }
+    assert(abs( arr::get_num(test_arr1, 3) - sqrt(6) ) < EPS );
+    assert(abs( arr::get_num(test_arr2, 3) - sqrt(48) ) < EPS );
+    assert(abs( arr::get_num(test_arr3, 3) - sqrt(0.75) ) < EPS );
+}
+
 int main(){
+    //Тесты
+    test_get_num();
+
     int choice = 0;
     cout << "Выберите способ заполнения массива:\n1. Случайными числами\n2. Ввод массива из файла\n3. Ручной ввод\n";
     cin >> choice;
@@ -65,10 +89,7 @@ int main(){
         cout << "Введите размер массива: ";
         cin >> size;
         array = new float[size];
-        for (size_t i = 0; i < size; i++){
-            cout << format("a[{}]: ", i+1);
-            cin >> array[i];
-        }
+        arr::fill_man(size, array);
         break;
     }
     default:{

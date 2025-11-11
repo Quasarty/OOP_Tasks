@@ -1,14 +1,28 @@
 //Автор: Кожевников Андрей
 //Модуль для работы с динамическими массивами
-
+//g++ -o Arrays.o Arrays.cpp -c -std=c++23
+//ar rcs .\Lib\MyLib.a Arrays.o
 #include <iostream>
 #include <format>
 #include <random>
 #include <fstream>
-                                      
+
 using namespace std;
 
 namespace arr{
+
+/**
+ * @brief Заполняет массив вручную
+ * 
+ * @param size размер массива
+ * @param array указатель на массив
+ */
+void fill_man(size_t size, float* array){ 
+    for (size_t i = 0; i < size; i++){
+        cout << format("a[{}]: ", i+1);
+        cin >> array[i];
+    }
+}
 
 /**
  * @brief Заполняет массив случайными числами

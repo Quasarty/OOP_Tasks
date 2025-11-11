@@ -11,6 +11,8 @@ using namespace std;
 
 namespace arr{
 
+void fill_man(size_t size, float* array);
+
 /**
  * @brief Функция выводит массив
  * 
