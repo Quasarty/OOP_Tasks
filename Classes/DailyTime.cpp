@@ -2,8 +2,13 @@
 #include <format>
 #include <string>
 
+#include <assert.h>
 #include <iostream>
 // #include <exception>
+
+
+//todo: комментарии, больше тестов + примеры исп.
+
 class DailyTime{
     unsigned short hour;
     unsigned short minute;
@@ -85,6 +90,7 @@ int main(){
     DailyTime tm(20);
     tm.add_hour(5);
     tm.add_second(36361);
+    assert( tm.to_string() == "11:06:01" );
     std::cout << tm.to_string() << "\n";
 
     tm.set_hour(23);
