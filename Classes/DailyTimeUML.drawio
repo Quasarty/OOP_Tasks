@@ -1,0 +1,70 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36" version="27.1.4">
+  <diagram name="Страница — 1" id="5qZmZTS1TQKsvcjupV0t">
+    <mxGraphModel dx="884" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-1" value="&lt;font face=&quot;Helvetica&quot;&gt;DailyTime&lt;/font&gt;" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="1">
+          <mxGeometry x="50" y="80" width="580" height="476" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-2" value="- hour : unsigned short" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="26" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-5" value="- minute : unsigned short" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="52" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-6" value="- second : unsigned short" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="78" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="104" width="580" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-4" value="+ DailyTime()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="112" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-13" value="+ DailyTime(hour : unsigned short)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="138" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-14" value="+ DailyTime(hour : unsigned short, minute : unsigned short)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="164" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-15" value="+ DailyTime(hour : unsigned short, minute : unsigned short,&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;second : unsigned short)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="190" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-7" value="+ get_hour() : unsigned short" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="216" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-8" value="+ get_minute()&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;: unsigned short&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="242" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-9" value="+ get_second() : unsigned short" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="268" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-10" value="+ set_hour(hour : unsigned short)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="294" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-11" value="+ set_minute(minute : unsigned short)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="320" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-12" value="+ set_second(second&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;: unsigned short)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="346" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-17" value="+ add_hour(hour&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;unsigned short)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="372" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-18" value="+ add_minute(minute&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;unsigned short)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="398" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-19" value="+ add_second(second&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;unsigned short)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="424" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-16" value="+ to_string() : string" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontFamily=Consolas;" vertex="1" parent="w0NIJAi6CVbLidOgtzNP-1">
+          <mxGeometry y="450" width="580" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="w0NIJAi6CVbLidOgtzNP-22" value="UML Диаграмма" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="50" y="40" width="130" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
