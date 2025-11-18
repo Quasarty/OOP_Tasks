@@ -7,8 +7,6 @@
 #include <random>
 #include <fstream>
 
-//todo: если функция кидает искл, то показывать в коментах
-
 using namespace std;
 
 namespace arr{

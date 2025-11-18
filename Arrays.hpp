@@ -61,6 +61,7 @@ float* fill_rand(size_t size, float min = -10.0, float max = 10.0 );
  * @param array массив
  * @param size размер массива
  * @param file_name название файла
+ * @exception runtime_error, если не удалось открыть файл 
  */
 template <typename T>
 void print_to_file(const T* array, size_t size, string file_name){
@@ -83,6 +84,7 @@ void print_to_file(const T* array, size_t size, string file_name){
  * @param array массив
  * @param size размер массива
  * @param file_name название файла
+ * @exception runtime_error, если не удалось открыть файл 
  */
 template <typename T>
 void print_to_bin_file(const T* array, const size_t size, string file_name){
@@ -106,6 +108,7 @@ void print_to_bin_file(const T* array, const size_t size, string file_name){
  * @param array массив
  * @param file_name название файла
  * @return size_t размер массива
+ * @exception runtime_error, если не удалось открыть файл 
  */
 template <typename T>
 size_t fill_from_file(T* array, string file_name){
@@ -138,6 +141,7 @@ size_t fill_from_file(T* array, string file_name){
  * @param array массив
  * @param file_name название файла
  * @return size_t размер массива
+ * @exception runtime_error, если не удалось открыть файл 
  */
 template <typename T>
 size_t fill_from_bin_file(T*& array, string file_name){
