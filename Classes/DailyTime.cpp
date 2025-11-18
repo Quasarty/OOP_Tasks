@@ -1,13 +1,11 @@
 #include <stdexcept>
 #include <format>
 #include <string>
+#include <fstream>
 
 #include <assert.h>
 #include <iostream>
 // #include <exception>
-
-
-//todo: комментарии, больше тестов + примеры исп.
 
 /**
  * @brief Класс времени суток, содержащий часы, минуты, секунды
@@ -15,13 +13,13 @@
  */
 class DailyTime{
 
-    //Количество минут
+    //Количество часов в диапозоне 0 <= hour <= 23
     unsigned short hour;
 
-    //Количество минут
+    //Количество минут в диапозоне 0 <= minute <= 59
     unsigned short minute;
 
-    //Количество секунд
+    //Количество секунд в диапозоне 0 <= second <= 59
     unsigned short second;
 
 public:
@@ -179,6 +177,32 @@ public:
         add_second( add_time.get_second() );
         return *this;
     }
+
+    void to_bin_file(std::string file_name){
+        std::fstream file(file_name, std::ios::out | std::ios::trunc | std::ios::binary);
+       
+        if ( !file.is_open() )
+            throw(std::runtime_error("Ошибка: не удалось открыть файл"));
+
+        file.write((char*)&hour, sizeof(unsigned short));
+        file.write((char*)&minute, sizeof(unsigned short));
+        file.write((char*)&second, sizeof(unsigned short));
+
+        file.close();
+    }
+
+    void from_bin_file(std::string file_name){
+        std::fstream file(file_name, std::ios::in | std::ios::binary);
+
+        if ( !file.is_open() )
+            throw(std::runtime_error("Ошибка: не удалось открыть файл"));
+
+        file.read((char*)&hour, sizeof(unsigned short));
+        file.read((char*)&minute, sizeof(unsigned short));
+        file.read((char*)&second, sizeof(unsigned short));
+
+        file.close();
+    } 
 };
 
 /**
@@ -195,7 +219,7 @@ DailyTime operator+(const DailyTime& time1, const DailyTime& time2){
 }
 
 int main(){
-    
+
     //Создание статического объекта
     DailyTime time1;
     std::cout << time1.to_string() << "\n";
@@ -232,13 +256,16 @@ int main(){
     }
     std::cout << "\n";
 
-    
+    time1.to_bin_file("test.bin");
+    DailyTime timebin;
+    timebin.from_bin_file("test.bin");
+    std::cout << timebin.to_string();
 
-    // DailyTime tm(20);
-    // tm.add_hour(5);
-    // tm.add_second(36361);
-    // assert( tm.to_string() == "11:06:01" );
-    // std::cout << tm.to_string() << "\n";
+
+    DailyTime tm(20);
+    tm.add_hour(5);
+    tm.add_second(36361);
+    assert( tm.to_string() == "11:06:01" );
 
     // tm.set_hour(23);
     // tm.set_minute(52);
