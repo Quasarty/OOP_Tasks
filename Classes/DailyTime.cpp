@@ -10,8 +10,7 @@
 #include <assert.h>
 #include <iostream>
 // #include <exception>
-
-
+ 
 /**
  * @brief Создает объект с полями, равными 0
  * 

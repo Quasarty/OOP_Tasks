@@ -27,7 +27,27 @@ void DailyTime_test(){
     tm4.set_second(22);
     assert( tm4.to_string() == "23:52:22" );
 
-}
+    DailyTime tm5(22, 13, 7);
+    assert( tm5.to_string() == "22:13:07");
+
+    DailyTime tm6(13, 7);
+    assert( tm6.to_string() == "13:07:00");
+
+    try{
+        tm6.set_hour(32);
+        assert(false); //< если тест не пройден
+    }
+    catch(const std::invalid_argument& e){
+        // Тест пройден
+    }
+    
+    try{
+        tm6.set_minute(999);
+        assert(false); //< если тест не пройден
+    }
+    catch(const std::invalid_argument& e){
+        // Тест пройден
+    }}
 
 int main(){
     DailyTime_test();
@@ -60,7 +80,7 @@ int main(){
     std::cout << "\n";
 
     //Создание массива из указателей
-    DailyTime* time_arr3[5];
+    DailyTime* time_arr3[5];    
     for (std::size_t i = 0; i < 5; i++){
         time_arr3[i] = new DailyTime(i+1, i*10, 10+i); //< Конструктор 
         std::cout << time_arr3[i]->to_string() << "\n";
