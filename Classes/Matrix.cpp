@@ -182,27 +182,20 @@ public:
 
     }
 
-    // template <typename T>
+    // если непоулчится никак, то int_print + real_print 
     void print() const{
         for (auto& row : data){
             for (auto& cell : row)
-                std::cout << std::format("{:8.2f}", cell);                
+                if (true)
+                // if ( ( typeid((*this)[0][0]) == typeid(double) ) or ( typeid((*this)[0][0]) == typeid(float) ) )
+                    std::cout << std::format("{:8.2f}", cell);
+                else
+                    std::cout << std::format("{:5d}", cell);
             std::cout << "\n";
             }
     }
 
-    void print() const{
-        for (auto& row : data){
-            for (auto& cell : row)
-                std::cout << std::format("{:5d}", cell);                
-            std::cout << "\n";
-            }
-    }
-    // template <>
-    // void print<int>() const {
-
-    // }
-
+    
 };
 
 //Можно и внутри
@@ -267,22 +260,6 @@ int main(){
     m1.fill(2);
     m1 = m1+3.0;
     m1.print();
-    std::cout << "\n";
-
-    Matrix<double> m2(3,3);
-    for (size_t i = 0; i < m1.rows(); i++)
-        for (size_t j = 0; j < m1.cols(); j++)
-            m2[i][j] = i+j;
-    m2.print();
-    std::cout << "\n";
-    Matrix<double> m3 = m1-m2;
-    m3.print();
-    std::cout << "\n";
-    std::cout << std::format("{:5d}", 5);
 
 
-    // Matrix<int> m4(2, 2);
-    // m4.rand_fill(-10,10);
-    // m4.print();
-    // std::cout << "\n";
 }
