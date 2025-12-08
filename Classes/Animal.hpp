@@ -1,5 +1,7 @@
-#include <string>
+#pragma once
 
+#include <string>
+#include <random>
 
 enum Targets{SmallAnimal, MediumAnimal, BigAnimal};
 
@@ -9,49 +11,56 @@ public:
     std::string name;
 protected:
     bool isDead;
-    unsigned short health;
-    unsigned short hunger;
-    unsigned short thrist;
-    unsigned short stamina;
+    int health;
+    int hunger;
+    int thrist;
+    int stamina;
 
 public: 
-    Animal();
-    Animal( std::string name1 );
-    void sleep();
-    virtual void move();
-    virtual void seek_food();
-    void seek_water();
+    Animal( std::string name1 = "");
+    std::string sleep();
+    virtual std::string move();
+    virtual std::string seek_food();
+    std::string seek_water();
 
-    unsigned short get_health() const;
-    unsigned short get_hunger() const;
-    unsigned short get_thrist() const;
-    unsigned short get_stamina() const;
+    int get_health() const;
+    int get_hunger() const;
+    int get_thrist() const;
+    int get_stamina() const;
 
-    void set_health(unsigned short new_health);
-    void set_hunger(unsigned short new_hunger);
-    void set_thrist(unsigned short new_thrist);
-    void set_stamina(unsigned short new_stamina);
+    void set_health(int new_health);
+    void set_hunger(int new_hunger);
+    void set_thrist(int new_thrist);
+    void set_stamina(int new_stamina);
 
+    void add_health(int change_health);
+    void add_hunger(int change_hunger);
+    void add_thrist(int change_thrist);
+    void add_stamina(int change_stamina);
+    
     virtual std::string to_string() const;
 protected:
-    bool checkDeath() const;
+    bool checkDeath();
+    std::string checkHungerThrist();
 };
 
 class Cat : public Animal{
     Targets target;
 public:
-    void seek_target();
-    void seek_food();
+    std::string seek_target();
+    std::string seek_food();
     std::string to_string() const;
 };
 
 class Bird : public Animal{
     bool isFlying;
 public:
-    void start_fly();
-    void stop_fly();
-    void seek_food();
-    void move();
-    std::string to_string();
+    std::string start_fly();
+    std::string stop_fly();
+    std::string seek_food();
+    std::string move();
+    std::string to_string() const;
 
 };
+
+int rand_percent();
