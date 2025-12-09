@@ -42,11 +42,13 @@ public:
 protected:
     bool checkDeath();
     std::string checkHungerThrist();
+    std::string checkActionCondtions();
 };
 
 class Cat : public Animal{
     Targets target;
 public:
+    Cat(std::string name1 = "");
     std::string seek_target();
     std::string seek_food();
     std::string to_string() const;
@@ -57,7 +59,6 @@ class Bird : public Animal{
 public:
     std::string start_fly();
     std::string stop_fly();
-    std::string seek_food();
     std::string move();
     std::string to_string() const;
 
