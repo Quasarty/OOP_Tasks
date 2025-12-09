@@ -248,29 +248,36 @@ std::string Cat::seek_food(){
             add_hunger(HT_GAIN);
             if (percent <= 10){
                 add_health(-10);
+                target = (Targets)-1;
                 return "Охота прошла не совсем успешно. Во время погони животное запнулось и поцарапалось. Здоровье понижено, голод восстановлен";
             }
+            target = (Targets)-1;
             return "Охота прошла успешно. Голод восстановлен";}
         case MediumAnimal:{
             add_hunger(HT_GAIN*2);
             if (percent <= 30){
                 add_health(-20);
+                target = (Targets)-1;
                 return "Охота была нелёгкой. Животное получило ранение. Здоровье понижено, голод восстановлен";
             } 
+            target = (Targets)-1;
             return "Охота прошла успешно. Голод восстановлен";
         }
         case BigAnimal:{
             add_hunger(HT_GAIN*3);
             if (percent <= 50){
                 add_health(-40);
+                target = (Targets)-1;
                 return "Охота почти провалилась. Животное получило серьезные раны. Здоровье понижено, голод восстановлен";
             }
+            target = (Targets)-1;
             return "Охота прошла успешно. Голод восстановлен";
         }
         default:{
             return "Добыча отсутствует";
         }
     }
+    
 }
 
 std::string Cat::to_string() const{
@@ -304,7 +311,47 @@ std::string Bird::to_string() const{
 }
 
 int main(){
-    Cat ct;
-    std::cout << ct.to_string();
-    std::cout << ct.seek_food();
+    Cat anml("Silly Cat");
+
+    enum CatActions{exit, move, sleep, seek_food, seek_target, seek_water, to_string};
+
+    while (!anml.isDead){
+        int choise;
+        std::cin >> choise;
+        switch (choise){
+        case move:
+            std::cout << anml.move() << "\n"; 
+            break;
+
+        case sleep:
+            std::cout << anml.sleep() << "\n";
+            break;
+
+        case seek_food:
+            std::cout << anml.seek_food() << "\n";
+            break;
+
+        case seek_target:
+            std::cout << anml.seek_target() << "\n";
+            break;
+
+        case seek_water:
+            std::cout << anml.seek_water() << "\n";
+            break;
+
+        case to_string:
+            std::cout << anml.to_string() << "\n";
+            break;
+        
+        case exit:
+            std::exit(0);
+            break;    
+
+        default:
+            std::cout << "Неизвестная команда" << "\n";
+            break;
+        }
+        
+
+    }
 }

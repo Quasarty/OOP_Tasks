@@ -9,8 +9,8 @@ class Animal{
 
 public:
     std::string name;
-protected:
     bool isDead;
+protected:
     int health;
     int hunger;
     int thrist;
