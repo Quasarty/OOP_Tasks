@@ -5,11 +5,11 @@
 
 #include <iostream>
 
-const int STAMINA_ACTION_COST = 10; 
-const int HT_ACTION_COST = 5;
-const int SLEEP_HT_COST = 10;
-const int SEEK_FAIL_CHANCE = 20;
-const int HT_GAIN = 30;
+static const int STAMINA_ACTION_COST = 10; 
+static const int HT_ACTION_COST = 5;
+static const int SLEEP_HT_COST = 10;
+static const int SEEK_FAIL_CHANCE = 20;
+static const int HT_GAIN = 30;
 
 Animal::Animal(std::string name1) : name(name1), health(100), hunger(100), thrist(100), stamina(100), isDead(false) {}
 
@@ -291,67 +291,189 @@ std::string Cat::to_string() const{
     return Animal::to_string() + std::format("\nТекущая добыча: {}", target_str);
 }
 
+Bird::Bird(std::string name1) : Animal(name1), isFlying(false) {}
+
 std::string Bird::start_fly(){
+    if (isFlying)
+        return "Животное уже летает"; 
     isFlying = true;
     return "Животное взмывает вверх";
 }
 
 std::string Bird::stop_fly(){
+    if (!isFlying)
+        return "Животное уже на земле"; 
     isFlying = false;
     return "Животное приземляется на землю";
 }
 
 
 std::string Bird::move(){
+    std::string condition_text = checkActionCondtions();
+
+    if ( (stamina < STAMINA_ACTION_COST) or isDead)
+        return condition_text;
     
+    add_hunger(-HT_ACTION_COST);
+    add_thrist(-HT_ACTION_COST);
+    
+    if (isFlying){
+        add_stamina(-2 * STAMINA_ACTION_COST);
+        return "Животное летит дальше. Энергия потрачена";
+    }   
+    else{
+        add_stamina(-STAMINA_ACTION_COST);
+        return "Животное двигается дальше. Энергия потрачена";
+    }
 }
 
 std::string Bird::to_string() const{
-
+    std::string fly_str;
+    if (isFlying)
+        fly_str = "Да";
+    else    
+        fly_str = "Нет";
+    return Animal::to_string() + std::format("\nЛетает: {}", fly_str);
 }
 
 int main(){
-    Cat anml("Silly Cat");
+    std::cout << "Выберите персонажа:\nКошка: 1\nПтица: 2\n";
+    int player_choise;
+    std::cin >> player_choise;
+    switch (player_choise){
+        case 1:{
+            Cat anml("Silly Cat");
+            enum CatActions{exit, move, sleep, seek_water, seek_target, seek_food, to_string};
+            std::string cat_controls = "\nКоманды\nВыход: 0\nДвигаться дальше: 1\nСпать: 2\nИскать воду: 3\nИскать добычу: 4\nОхотится: 5\nИнформация: 6\n";
+            do {
+                std::cout << cat_controls;
+                int choise;
+                std::cin >> choise;
+                switch (choise){
+                case move:
+                    std::cout << anml.move() << "\n"; 
+                    break;
 
-    enum CatActions{exit, move, sleep, seek_food, seek_target, seek_water, to_string};
+                case sleep:
+                    std::cout << anml.sleep() << "\n";
+                    break;
 
-    while (!anml.isDead){
-        int choise;
-        std::cin >> choise;
-        switch (choise){
-        case move:
-            std::cout << anml.move() << "\n"; 
-            break;
+                case seek_food:
+                    std::cout << anml.seek_food() << "\n";
+                    break;
 
-        case sleep:
-            std::cout << anml.sleep() << "\n";
-            break;
+                case seek_target:
+                    std::cout << anml.seek_target() << "\n";
+                    break;
 
-        case seek_food:
-            std::cout << anml.seek_food() << "\n";
-            break;
+                case seek_water:
+                    std::cout << anml.seek_water() << "\n";
+                    break;
 
-        case seek_target:
-            std::cout << anml.seek_target() << "\n";
-            break;
+                case to_string:
+                    std::cout << anml.to_string() << "\n";
+                    break;
+                
+                case exit:
+                    std::exit(0);
+                    break;    
 
-        case seek_water:
-            std::cout << anml.seek_water() << "\n";
-            break;
+                default:
+                    std::cout << "Неизвестная команда" << "\n";
+                    break;
+                }
+            } while (!anml.isDead);
+            break;}
+        case 2:{
+            Bird anml("Big Bird");
+            enum BirdActions{exit, move, sleep, seek_water, seek_food, start_fly, stop_fly, to_string};
+            std::string bird_controls = "\nКоманды\nВыход: 0\nДвигаться дальше: 1\nСпать: 2\nИскать воду: 3\nИскать еду: 4\nНачать полет: 5\nЗакончить полет: 6\nИнформация: 7\n";
+            do {
+                std::cout << bird_controls;
+                int choise;
+                std::cin >> choise;
+                switch (choise){
+                case move:
+                    std::cout << anml.move() << "\n"; 
+                    break;
 
-        case to_string:
-            std::cout << anml.to_string() << "\n";
-            break;
-        
-        case exit:
-            std::exit(0);
-            break;    
+                case sleep:
+                    std::cout << anml.sleep() << "\n";
+                    break;
 
+                case seek_food:
+                    std::cout << anml.seek_food() << "\n";
+                    break;
+
+                case start_fly:
+                    std::cout << anml.start_fly() << "\n";
+                    break;
+
+                case stop_fly:
+                    std::cout << anml.stop_fly() << "\n";
+                    break;
+
+                case seek_water:
+                    std::cout << anml.seek_water() << "\n";
+                    break;
+
+                case to_string:
+                    std::cout << anml.to_string() << "\n";
+                    break;
+                
+                case exit:
+                    std::exit(0);
+                    break;    
+
+                default:
+                    std::cout << "Неизвестная команда" << "\n";
+                    break;
+                }
+            } while (!anml.isDead);
+            break;}
         default:
-            std::cout << "Неизвестная команда" << "\n";
+            std::cout << "Некорректный ввод";
             break;
-        }
+    }
+
+    // do {
+    //     std::cout << cat_controls;
+    //     int choise;
+    //     std::cin >> choise;
+    //     switch (choise){
+    //     case move:
+    //         std::cout << anml.move() << "\n"; 
+    //         break;
+
+    //     case sleep:
+    //         std::cout << anml.sleep() << "\n";
+    //         break;
+
+    //     case seek_food:
+    //         std::cout << anml.seek_food() << "\n";
+    //         break;
+
+    //     case seek_target:
+    //         std::cout << anml.seek_target() << "\n";
+    //         break;
+
+    //     case seek_water:
+    //         std::cout << anml.seek_water() << "\n";
+    //         break;
+
+    //     case to_string:
+    //         std::cout << anml.to_string() << "\n";
+    //         break;
+        
+    //     case exit:
+    //         std::exit(0);
+    //         break;    
+
+    //     default:
+    //         std::cout << "Неизвестная команда" << "\n";
+    //         break;
+    //     }
         
 
-    }
+    // } while (!anml.isDead);
 }

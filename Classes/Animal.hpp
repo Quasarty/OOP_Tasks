@@ -5,6 +5,8 @@
 
 enum Targets{SmallAnimal, MediumAnimal, BigAnimal};
 
+//TODO: NoTarget в Targets; move не показывает смерть/дамаг от голода; 
+
 class Animal{
 
 public:
@@ -50,17 +52,18 @@ class Cat : public Animal{
 public:
     Cat(std::string name1 = "");
     std::string seek_target();
-    std::string seek_food();
-    std::string to_string() const;
+    std::string seek_food() override;
+    std::string to_string()  const override;
 };
 
 class Bird : public Animal{
     bool isFlying;
 public:
+    Bird(std::string name1 = "");
     std::string start_fly();
     std::string stop_fly();
-    std::string move();
-    std::string to_string() const;
+    std::string move() override;
+    std::string to_string() const override;
 
 };
 
