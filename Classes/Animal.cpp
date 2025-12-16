@@ -5,43 +5,101 @@
 
 #include <iostream>
 
+//Стоимость энергии для действия
 static const int STAMINA_ACTION_COST = 10; 
+//Стоимость голода и жажды для действия 
 static const int HT_ACTION_COST = 5;
+//Стоимость голода и жажды для сна
 static const int SLEEP_HT_COST = 10;
+//Вероятноть неудачи в поиске
 static const int SEEK_FAIL_CHANCE = 20;
+//Прирост голода/жажды после поиска
 static const int HT_GAIN = 30;
 
+/**
+ * @brief Создает экземпляр класса Animal
+ * 
+ * @param name1 имя животного 
+ */
 Animal::Animal(std::string name1) : name(name1), health(100), hunger(100), thrist(100), stamina(100), isDead(false) {}
 
+/**
+ * @brief Геттер поля здоровья
+ * 
+ * @return int
+ */
 int Animal::get_health() const{ return health; }
+
+/**
+ * @brief Геттер поля сытости
+ * 
+ * @return int
+ */
 int Animal::get_hunger() const{ return hunger; }
+
+/**
+ * @brief Геттер поля жажды
+ * 
+ * @return int
+ */
 int Animal::get_thrist() const{ return thrist; }
+
+/**
+ * @brief Геттер поля энергии
+ * 
+ * @return int
+ */
 int Animal::get_stamina() const{ return stamina; }
 
+/**
+ * @brief Сеттер поля здоровья
+ * 
+ * @param new_health
+ */
 void Animal::set_health(int new_health){
     if ( (new_health > 100) or (new_health < 0) )
         throw std::invalid_argument("0 <= health <= 100"); 
     health = new_health;
 }
 
+/**
+ * @brief Сеттер поля сытости
+ * 
+ * @param new_hunger 
+ */
 void Animal::set_hunger(int new_hunger){
     if ( (new_hunger > 100) or (new_hunger < 0) )
         throw std::invalid_argument("0 <= hunger <= 100"); 
     hunger = new_hunger;
 }
 
+/**
+ * @brief Сеттер поля жажды
+ * 
+ * @param new_thrist 
+ */
 void Animal::set_thrist(int new_thrist){
     if ( (new_thrist > 100) or (new_thrist < 0) )
         throw std::invalid_argument("0 <= thrist <= 100"); 
     thrist = new_thrist;
 }
 
+/**
+ * @brief Сеттер поля энергии
+ * 
+ * @param new_stamina 
+ */
 void Animal::set_stamina(int new_stamina){
     if ( (new_stamina > 100) or (new_stamina < 0) )
         throw std::invalid_argument("0 <=stamina <= 100"); 
     stamina = new_stamina;
 }
 
+/**
+ * @brief Прибавляет значение к полю здоровья
+ * 
+ * @param change_health
+ */
 void Animal::add_health(int change_health){
     int add_health = health + change_health;
     if (add_health > 100)
@@ -53,6 +111,11 @@ void Animal::add_health(int change_health){
     
 }
 
+/**
+ * @brief Прибавляет значение к полю сытости
+ * 
+ * @param change_health
+ */
 void Animal::add_hunger(int change_hunger){
     int add_hunger = hunger + change_hunger;
     if (add_hunger > 100)
@@ -64,6 +127,11 @@ void Animal::add_hunger(int change_hunger){
         set_hunger(add_hunger);
 }
 
+/**
+ * @brief Прибавляет значение к полю жажды
+ * 
+ * @param change_health
+ */
 void Animal::add_thrist(int change_thrist){
     int add_thrist = thrist + change_thrist;
     if (add_thrist > 100)
@@ -74,6 +142,11 @@ void Animal::add_thrist(int change_thrist){
         set_thrist(add_thrist);
 }
 
+/**
+ * @brief Прибавляет значение к полю энергии
+ * 
+ * @param change_health
+ */
 void Animal::add_stamina(int change_stamina){
     int add_stamina = stamina + change_stamina;
     if (add_stamina > 100)
@@ -84,6 +157,12 @@ void Animal::add_stamina(int change_stamina){
         set_stamina(add_stamina);
 }
 
+/**
+ * @brief Проверяет здоровье, если оно равно 0, то ствит isDead = true
+ * 
+ * @return true if isDead
+ * @return false if !isDead
+ */
 bool Animal::checkDeath(){
     if (isDead)
         return true;
@@ -94,6 +173,11 @@ bool Animal::checkDeath(){
     return false;
 }
 
+/**
+ * @brief Проверяет, может ли животное совершить действие, отнимает здоровье, если присутствует голод и жажда, проверяет здоровье
+ * 
+ * @return std::string выходное сообщение  
+ */
 std::string Animal::checkActionCondtions(){
     if ( checkDeath() )
         return "Животное погибло";
@@ -107,7 +191,11 @@ std::string Animal::checkActionCondtions(){
     return "";
 }
 
-
+/**
+ * @brief Отнимает здоровье, если присутствует голод и жажда
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Animal::checkHungerThrist(){
     if ( (hunger <= 10) and (thrist <= 10) ){
         add_health(-10);
@@ -124,6 +212,11 @@ std::string Animal::checkHungerThrist(){
     return "";
 }
 
+/**
+ * @brief Возвращает случайное целое число от 1 до 100 
+ * 
+ * @return int  
+ */
 int rand_percent(){
     std::random_device rd;
     std::mt19937 gen( rd() );
@@ -132,6 +225,11 @@ int rand_percent(){
     return distr(gen);
 } 
 
+/**
+ * @brief Действие сна животного
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Animal::sleep(){
     std::string ht_text = checkHungerThrist();
     if ( checkDeath() )
@@ -148,6 +246,11 @@ std::string Animal::sleep(){
     return ht_text+"Животное отдохнуло. Энергия восстановлена";
 }
 
+/**
+ * @brief Действие движения животного
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Animal::move(){
     std::string condition_text = checkActionCondtions();
 
@@ -160,6 +263,11 @@ std::string Animal::move(){
     return "Животное двигается дальше. Энергия потрачена";
 }
 
+/**
+ * @brief Действие поиска еды животного
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Animal::seek_food(){
     std::string condition_text = checkActionCondtions();
 
@@ -174,13 +282,18 @@ std::string Animal::seek_food(){
     if (percent <= SEEK_FAIL_CHANCE){
         add_health(-20);
         add_hunger(HT_GAIN/2);
-        return "Животное нашло немного еды. Во время дальнейших поисков был встречен хищник. В погоне животное немного поранилось. Голод восстановлен, здоровье понижено";
+        return "Животное нашло немного еды. Во время дальнейших поисков был встречен хищник. В погоне животное немного поранилось. Сытость восстановлена, здоровье понижено";
     }
     add_hunger(HT_GAIN);
 
-    return "Животное нашло еду. Голод восстановлен";
+    return "Животное нашло еду. Сытость восстановлена";
 }
 
+/**
+ * @brief Действие поиска воды животного
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Animal::seek_water(){
     std::string condition_text = checkActionCondtions();
 
@@ -200,14 +313,29 @@ std::string Animal::seek_water(){
     return "Животное нашло озеро. Жажда восстановлена";
 }
 
+/**
+ * @brief возвращает информацию о животном в виде строки
+ * 
+ * @return std::string 
+ */
 std::string Animal::to_string() const{
-    return std::format("Имя: {}\nЗдоровье: {}\nГолод: {}\nЖажда: {}\nЭнергия: {}", name, health, hunger, thrist, stamina);
+    return std::format("Имя: {}\nЗдоровье: {}\nСытость: {}\nЖажда: {}\nЭнергия: {}", name, health, hunger, thrist, stamina);
 }
 
+/**
+ * @brief Создает экземпляр класса Cat
+ * 
+ * @param name1 имя кошки
+ */
 Cat::Cat(std::string name1) : Animal(name1) {
     target = (Targets)-1;
 }
 
+/**
+ * @brief Действие поиска добычи кошки
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Cat::seek_target(){
     std::string condition_text = checkActionCondtions();
 
@@ -230,6 +358,11 @@ std::string Cat::seek_target(){
     return "Была найдена мелкая добыча";
 }
 
+/**
+ * @brief Действие охоты кошки
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Cat::seek_food(){
     if (target == -1)
         return "Добыча отсутствует";
@@ -249,29 +382,29 @@ std::string Cat::seek_food(){
             if (percent <= 10){
                 add_health(-10);
                 target = (Targets)-1;
-                return "Охота прошла не совсем успешно. Во время погони животное запнулось и поцарапалось. Здоровье понижено, голод восстановлен";
+                return "Охота прошла не совсем успешно. Во время погони животное запнулось и поцарапалось. Здоровье понижено, сытость восстановлена";
             }
             target = (Targets)-1;
-            return "Охота прошла успешно. Голод восстановлен";}
+            return "Охота прошла успешно. Сытость восстановлена";}
         case MediumAnimal:{
             add_hunger(HT_GAIN*2);
             if (percent <= 30){
                 add_health(-20);
                 target = (Targets)-1;
-                return "Охота была нелёгкой. Животное получило ранение. Здоровье понижено, голод восстановлен";
+                return "Охота была нелёгкой. Животное получило ранение. Здоровье понижено, Сытость восстановлена";
             } 
             target = (Targets)-1;
-            return "Охота прошла успешно. Голод восстановлен";
+            return "Охота прошла успешно. Сытость восстановлена";
         }
         case BigAnimal:{
             add_hunger(HT_GAIN*3);
             if (percent <= 50){
                 add_health(-40);
                 target = (Targets)-1;
-                return "Охота почти провалилась. Животное получило серьезные раны. Здоровье понижено, голод восстановлен";
+                return "Охота почти провалилась. Животное получило серьезные раны. Здоровье понижено, сытость восстановлена";
             }
             target = (Targets)-1;
-            return "Охота прошла успешно. Голод восстановлен";
+            return "Охота прошла успешно. Сытость восстановлена";
         }
         default:{
             return "Добыча отсутствует";
@@ -280,6 +413,11 @@ std::string Cat::seek_food(){
     
 }
 
+/**
+ * @brief возвращает информацию о кошке в виде строки
+ * 
+ * @return std::string 
+ */
 std::string Cat::to_string() const{
     std::string target_str;
     switch (target){
@@ -291,8 +429,18 @@ std::string Cat::to_string() const{
     return Animal::to_string() + std::format("\nТекущая добыча: {}", target_str);
 }
 
+/**
+ * @brief Создает экземпляр класса Bird
+ * 
+ * @param name1 имя птицы
+ */
 Bird::Bird(std::string name1) : Animal(name1), isFlying(false) {}
 
+/**
+ * @brief Действие начала полета
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Bird::start_fly(){
     if (isFlying)
         return "Животное уже летает"; 
@@ -300,6 +448,11 @@ std::string Bird::start_fly(){
     return "Животное взмывает вверх";
 }
 
+/**
+ * @brief Действие конца полета
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Bird::stop_fly(){
     if (!isFlying)
         return "Животное уже на земле"; 
@@ -307,7 +460,11 @@ std::string Bird::stop_fly(){
     return "Животное приземляется на землю";
 }
 
-
+/**
+ * @brief Действие движения птицы
+ * 
+ * @return std::string выходное сообщение
+ */
 std::string Bird::move(){
     std::string condition_text = checkActionCondtions();
 
@@ -327,6 +484,11 @@ std::string Bird::move(){
     }
 }
 
+/**
+ * @brief возвращает информацию о птице в виде строки
+ * 
+ * @return std::string 
+ */
 std::string Bird::to_string() const{
     std::string fly_str;
     if (isFlying)
@@ -337,6 +499,35 @@ std::string Bird::to_string() const{
 }
 
 int main(){
+    //Демо
+    {
+        Cat kitty("Kitty");
+        //Вызов переопределенного виртуального метода
+        std::cout << kitty.to_string() << "\n\n";
+        //Вызов родительского метода, который был переопределен
+        std::cout << kitty.Animal::to_string() << "\n\n";
+
+        //Динамический полиморфизм здесь можно использовать, т.к. приводим к указателю
+        Cat* catt = new Cat("Catt");
+        Bird* birdy = new Bird("Big Bird");
+        Animal* arr[2];
+        arr[0] = birdy;
+        arr[1] = catt;
+        std::cout << arr[0]->to_string() << "\n\n"; 
+        std::cout << arr[1]->to_string() << "\n\n"; 
+
+        //Динамик каст нужен, чтобы вызывать не виртуальные методы
+        std::cout << dynamic_cast<Bird*>(arr[0])->start_fly() << "\n\n";
+        std::cout << dynamic_cast<Cat*>(arr[1])->seek_target() << "\n\n";
+
+        //Здесь динамический полиморфизм нельзя использовать(он не сработает)
+        Animal beast;
+        beast = kitty;
+        std::cout << beast.to_string() << "\n\n";
+    }
+
+
+
     std::cout << "Выберите персонажа:\nКошка: 1\nПтица: 2\n";
     int player_choise;
     std::cin >> player_choise;
@@ -436,44 +627,4 @@ int main(){
             break;
     }
 
-    // do {
-    //     std::cout << cat_controls;
-    //     int choise;
-    //     std::cin >> choise;
-    //     switch (choise){
-    //     case move:
-    //         std::cout << anml.move() << "\n"; 
-    //         break;
-
-    //     case sleep:
-    //         std::cout << anml.sleep() << "\n";
-    //         break;
-
-    //     case seek_food:
-    //         std::cout << anml.seek_food() << "\n";
-    //         break;
-
-    //     case seek_target:
-    //         std::cout << anml.seek_target() << "\n";
-    //         break;
-
-    //     case seek_water:
-    //         std::cout << anml.seek_water() << "\n";
-    //         break;
-
-    //     case to_string:
-    //         std::cout << anml.to_string() << "\n";
-    //         break;
-        
-    //     case exit:
-    //         std::exit(0);
-    //         break;    
-
-    //     default:
-    //         std::cout << "Неизвестная команда" << "\n";
-    //         break;
-    //     }
-        
-
-    // } while (!anml.isDead);
 }
